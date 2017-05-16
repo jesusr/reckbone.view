@@ -1,7 +1,6 @@
-var webpack = require('webpack');
-var packageJson = require('./package.json');
-var path = require('path');
-var BabiliPlugin = require('babili-webpack-plugin');
+let webpack = require('webpack'),
+ packageJson = require('./package.json'),
+ path = require('path');
 
 module.exports = {
     entry: ['./example/app.js'],
@@ -30,11 +29,6 @@ module.exports = {
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(packageJson.version),
             PACKAGE_NAME: JSON.stringify(packageJson.name)
-        }),
-        new BabiliPlugin({
-            'presets': [
-                ['babili', {}]
-            ]
         })
     ],
     module: {
