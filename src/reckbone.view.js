@@ -1,5 +1,5 @@
 import _ from 'overscore';
-import $ from 'mquery';
+import $ from 'jquery';
 import Utils from '../../helpers/Utils';
 import Handlebars from 'handlebars-template-loader/runtime';
 
