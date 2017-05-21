@@ -1,6 +1,4 @@
-let webpack = require('webpack'),
-  packageJson = require('./package.json'),
-  path = require('path');
+let path = require('path');
 
 module.exports = {
   entry: ['./example/app.js'],
