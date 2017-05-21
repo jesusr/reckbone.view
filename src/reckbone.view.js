@@ -1,6 +1,5 @@
 import _ from 'overscore';
 import $ from 'jquery';
-import Utils from '../../helpers/Utils';
 import Handlebars from 'handlebars-template-loader/runtime';
 
 export default class View {
@@ -9,6 +8,7 @@ export default class View {
     this.opt = opt;
     this.events = this.events || opt.events ? opt.events : {};
     this.template = this.template ? this.template : opt.template ? _.template(opt.template) : null;
+    this.exTemplateConfig = opt.exTemplateConfig || null;
     this.eventsRef = [];
     this.initialize(opt);
   }
@@ -18,9 +18,10 @@ export default class View {
       return;
     } else {
       registerTemplate.call(this);
-      if (this.options.container) this.options.container.append(this.render().el);
+      if (this.opt.container) this.opt.container.append(this.render().el);
       this.delegateEvents();
     }
+    console.log(this.template.toString());
   }
 
   static extend(protoProps, staticProps) {
@@ -55,7 +56,7 @@ export default class View {
   }
 
   hide() {
-    let name = Utils.getBrowser().name;
+    let name = getBrowser().name;
     if (name === 'IE' || name === 'Edge') {
       /* istanbul ignore next */
       this.$el.wrap('<span>').hide();
@@ -110,7 +111,7 @@ export default class View {
 }
 
 function getSelector(arr) {
-  let selector = '#' + this.options.map.getDiv().id;
+  let selector = '#' + this.$el.parent.id;
   selector += this.componentClass ? ' .' + this.componentClass + ' ' : ' ';
   selector += arr.join(' ');
   return selector;
@@ -128,7 +129,19 @@ function registerTemplate() {
   }
 }
 
+function _getTemplateConfig() {
+  let keys = Object.keys(this.exTemplateConfig);
+  let aux = {};
+  for (let i = 0; i < keys.length; i++) {
+    aux[keys[i]] = this.exTemplateConfig[keys[i]];
+  }
+  this.templateConfig = _.extend({}, aux);
+}
+
 function _render() {
+  if (this.exTemplateConfig) {
+    _getTemplateConfig.call(this);
+  }
   _setElement.call(this, this.template(this.templateConfig)).$el.addClass(this.componentClass);
   this.onRender();
   return this;
@@ -143,4 +156,40 @@ function _setElement(el) {
 function _removeElement() {
   this.$el.remove();
   return this;
+}
+
+function getBrowser() {
+  let ua = navigator.userAgent,
+    tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+  if (/trident/i.test(M[1])) {
+    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+    return {
+      name: 'IE',
+      version: (tem[1] || '')
+    };
+  }
+  if (/Edge\/\d./i.test(ua)) {
+    tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+    return {
+      name: 'Edge',
+      version: (tem[1] || '')
+    };
+  }
+  if (M[1] === 'Chrome') {
+    tem = ua.match(/\bOPR\/(\d+)/);
+    if (tem !== null) {
+      return {
+        name: 'Opera',
+        version: tem[1]
+      };
+    }
+  }
+  M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+  if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
+    M.splice(1, 1, tem[1]);
+  }
+  return {
+    name: M[0],
+    version: M[1]
+  };
 }

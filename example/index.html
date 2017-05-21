@@ -5,12 +5,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
   <title>Reckbone View</title>
-  <script src="../build/dist/js/reckbone.view.js"></script>
+  <script src="./app.build.js"></script>
 </head>
 
 <body>
+  <div id="main"></div>
   <script>
-
+    var app = new window.App.default();
+    app.initialize();
+    console.log(app);
 
   </script>
 </body>

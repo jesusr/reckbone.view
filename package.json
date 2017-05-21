@@ -20,6 +20,18 @@
   },
   "homepage": "https://github.com/jesusr/reckbone.view#readme",
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "overscore": "git://github.com/jesusr/overscore.git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-es2015": "^6.24.1",
+    "handlebars": "^4.0.8",
+    "handlebars-template-loader": "^0.7.0",
+    "lodash": "^4.17.4",
+    "source-map-loader": "^0.2.1",
+    "webpack": "^2.5.1"
   }
 }
