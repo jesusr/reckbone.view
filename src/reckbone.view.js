@@ -6,8 +6,10 @@ export default class View {
 
   constructor(opt = {}) {
     this.opt = opt;
+    this.componentClass = this.opt.componentClass || this.componentClass || 'without-class';
+    this.isChild = this.opt.isChild || this.isChild || false;
     this.events = this.events || (opt.events ? opt.events : {});
-    this.template = this.template ? this.template : opt.template ? _.template(opt.template) : null;
+    this.template = processTemplate(this.template ? this.template : opt.template ? opt.template : null);
     this.exTemplateConfig = opt.exTemplateConfig || null;
     this.eventsRef = [];
     this.initialize(opt);
@@ -19,7 +21,7 @@ export default class View {
     } else {
       registerTemplate.call(this);
       if (this.opt.container) this.opt.container.append(this.render().el);
-      else if (this.opt.isChild) this.render();
+      else if (this.isChild) this.render();
       this.delegateEvents();
     }
   }
@@ -110,9 +112,14 @@ export default class View {
   }
 }
 
+function processTemplate(tpl) {
+  return typeof tpl === 'string' || tpl instanceof String ?
+    _.template(tpl) : tpl;
+}
+
 function getSelector(arr) {
-  let selector = '#' + this.$el.parent.id;
-  selector += this.componentClass ? ' .' + this.componentClass + ' ' : ' ';
+  let selector = this.$el && this.$el.parent ? '#' + this.$el.parent.id : '';
+  selector += ' .' + this.componentClass + ' ';
   selector += arr.join(' ');
   return selector;
 }
@@ -148,6 +155,7 @@ function _render() {
 }
 
 function _setElement(el) {
+  /* istanbul ignore next */
   this.$el = typeof el === 'string' || el instanceof String ? $(el) : el;
   this.el = this.$el[0];
   return this;
@@ -155,9 +163,11 @@ function _setElement(el) {
 
 function _removeElement() {
   this.$el.remove();
+  this.el = null;
   return this;
 }
 
+/* istanbul ignore next */
 function getBrowser() {
   let ua = navigator.userAgent,
     tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];

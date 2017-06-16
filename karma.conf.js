@@ -19,15 +19,18 @@ module.exports = function (config) {
     reporters: ['spec', 'coverage'],
     coverageReporter: {
       dir: 'build/coverage/',
-      reporters: [
-        {
+      reporters: [{
           type: 'text'
         },
         {
           type: 'text-summary'
+        },
+        {
+          type: 'html'
         }
       ]
     },
+    logLevel: config.LOG_INFO,
     webpack: {
       module: {
         loaders: [{

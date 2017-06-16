@@ -37,7 +37,8 @@
     "chai": "^3.5.0",
     "handlebars": "^4.0.8",
     "handlebars-template-loader": "^0.7.0",
-    "istanbul-instrumenter-loader": "^2.0.0",
+    "istanbul": "github:gotwarlost/istanbul#source-map",
+    "istanbul-instrumenter-loader": "0.2.0",
     "karma": "^1.7.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-coverage": "^1.1.1",
@@ -49,6 +50,7 @@
     "karma-webpack": "^2.0.3",
     "lodash": "^4.17.4",
     "mocha": "^3.4.1",
+    "phantomjs-polyfill": "0.0.2",
     "sinon": "^2.2.0",
     "source-map-loader": "^0.2.1",
     "webpack": "^2.5.1"
