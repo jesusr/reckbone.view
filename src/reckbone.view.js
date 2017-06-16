@@ -4,9 +4,9 @@ import Handlebars from 'handlebars-template-loader/runtime';
 
 export default class View {
 
-  constructor(opt) {
+  constructor(opt = {}) {
     this.opt = opt;
-    this.events = this.events || opt.events ? opt.events : {};
+    this.events = this.events || (opt.events ? opt.events : {});
     this.template = this.template ? this.template : opt.template ? _.template(opt.template) : null;
     this.exTemplateConfig = opt.exTemplateConfig || null;
     this.eventsRef = [];
@@ -14,14 +14,14 @@ export default class View {
   }
 
   initialize(options) {
-    if (_.isUndefined(this.template)) {
+    if (!this.template) {
       return;
     } else {
       registerTemplate.call(this);
       if (this.opt.container) this.opt.container.append(this.render().el);
+      else if (this.opt.isChild) this.render();
       this.delegateEvents();
     }
-    console.log(this.template.toString());
   }
 
   static extend(protoProps, staticProps) {
