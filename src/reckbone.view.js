@@ -1,4 +1,4 @@
-import _ from 'overscore';
+import _ from 'overscore.js';
 import $ from 'jquery';
 import Handlebars from 'handlebars-template-loader/runtime';
 

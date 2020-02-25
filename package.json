@@ -23,7 +23,7 @@
   "homepage": "https://github.com/jesusr/reckbone.view#readme",
   "dependencies": {
     "jquery": "^3.2.1",
-    "overscore": "git://github.com/jesusr/overscore.git"
+    "overscore.js": "^0.1.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -37,9 +37,9 @@
     "chai": "^3.5.0",
     "handlebars": "^4.0.8",
     "handlebars-template-loader": "^0.7.0",
-    "istanbul": "github:gotwarlost/istanbul#source-map",
+    "istanbul": "^0.4.5",
     "istanbul-instrumenter-loader": "0.2.0",
-    "karma": "^1.7.0",
+    "karma": "^4.4.1",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-coverage": "^1.1.1",
     "karma-coverage-istanbul-reporter": "^1.2.1",
@@ -49,7 +49,7 @@
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.3",
     "lodash": "^4.17.4",
-    "mocha": "^3.4.1",
+    "mocha": "^7.0.1",
     "phantomjs-polyfill": "0.0.2",
     "sinon": "^2.2.0",
     "source-map-loader": "^0.2.1",
