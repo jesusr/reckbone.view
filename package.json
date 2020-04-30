@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/jesusr/reckbone.view#readme",
   "dependencies": {
-    "jquery": "^3.2.1",
+    "jquery": "^3.5.0",
     "overscore.js": "^0.1.0"
   },
   "devDependencies": {
